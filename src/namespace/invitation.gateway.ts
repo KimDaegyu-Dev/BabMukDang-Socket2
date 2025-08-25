@@ -121,9 +121,9 @@ export class InvitationGateway
         const roomId = `invitation:${rawRoomId}`;
 
         // 4) 방 참여 검증, 방에 있는 인원인지
-        const ok = this.roomService.canJoin(roomId, data.userId);
-        console.log(ok, data.userId);
-        if (!ok) return next(new Error('Forbidden: not a room member'));
+        // const ok = this.roomService.canJoin(roomId, data.userId);
+        // console.log(ok, data.userId);
+        // if (!ok) return next(new Error('Forbidden: not a room member'));
         data.roomId = roomId;
         // 기존 연결 정리
         // this.roomService.removeParticipant(socket.data.roomId, socket.data.userId);
