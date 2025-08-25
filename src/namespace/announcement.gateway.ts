@@ -139,6 +139,11 @@ export class AnnouncementGateway
       const { userInfo, roomId } = getWsCtx(client);
       // 사용자를 방에 추가
       if (userInfo && userInfo.userId && roomId) {
+        this.roomService.addParticipant(
+          roomId,
+          userInfo.userId,
+          userInfo.username,
+        );
         // this.roomService.addParticipant(
         //   roomId,
         //   userInfo.userId,
@@ -194,6 +199,7 @@ export class AnnouncementGateway
   }
 
   handleDisconnect(client: Socket) {
+    this.roomService.removeParticipant(client.data.roomId, client.data.userId);
     const { userInfo, roomId } = getWsCtx(client);
     const bound = this.logger.bind({
       ns: client.nsp?.name,

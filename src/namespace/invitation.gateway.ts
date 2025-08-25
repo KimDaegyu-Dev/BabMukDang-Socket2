@@ -148,6 +148,11 @@ export class InvitationGateway
 
       // 사용자를 방에 추가
       if (userInfo && userInfo.userId && roomId) {
+        this.roomService.addParticipant(
+          roomId,
+          userInfo.userId,
+          userInfo.username,
+        );
         // 채팅 메시지 전송
         const chatMessages = this.roomService.getChatMessages(roomId);
         client.emit('chat-messages', chatMessages);
@@ -191,6 +196,7 @@ export class InvitationGateway
   }
 
   handleDisconnect(client: Socket) {
+    this.roomService.removeParticipant(client.data.roomId, client.data.userId);
     const { userInfo, roomId } = getWsCtx(client);
     const bound = this.logger.bind({
       ns: client.nsp?.name,
