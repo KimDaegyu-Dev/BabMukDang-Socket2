@@ -112,8 +112,8 @@ export class AnnouncementGateway
         const roomId = `announcement:${rawRoomId}`;
 
         // 4) 방 참여 검증, 방에 있는 인원인지
-        const ok = this.roomService.canJoin(roomId, data.userId);
-        if (!ok) return next(new Error('Forbidden: not a room member'));
+        // const ok = this.roomService.canJoin(roomId, data.userId);
+        // if (!ok) return next(new Error('Forbidden: not a room member'));
 
         data.roomId = roomId;
 
